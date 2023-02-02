@@ -1,0 +1,18 @@
+
+[SLAM 실행 - Webcam]
+./bin/mono_tum_vi ./Vocabulary/ORBvoc.txt ./fisheye.yaml ./Trained_Model/model-60.onnx
+
+
+
+[SLAM 실행 - TCP]
+./bin/mono_tum_vi ./Vocabulary/ORBvoc.txt ./fisheye.yaml ./Trained_Model/model-60.onnx <IP> <PORT>
+
+
+
+[.h5 만들기 --> Train_E2E]
+python3 main.py --csv_name /home/ORB_SLAM3_juno/Data/driving_log.csv
+
+
+
+[.onnx 만들기 --> Train_E2E]
+python3 convert_to_onnx.py --ckpt /home/ORB_SLAM3_juno/Trained_Model/model-60.h5
