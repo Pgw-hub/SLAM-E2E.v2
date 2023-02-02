@@ -1,4 +1,4 @@
-# Install script for directory: /home/ORB_SLAM3_juno
+# Install script for directory: /home/ORB_SLAM3_juno/ORB_SLAM3_juno
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/ORB_SLAM3_juno/build/Thirdparty/g2o/cmake_install.cmake")
-  include("/home/ORB_SLAM3_juno/build/utils/cmake_install.cmake")
+  include("/home/ORB_SLAM3_juno/ORB_SLAM3_juno/build/Thirdparty/g2o/cmake_install.cmake")
+  include("/home/ORB_SLAM3_juno/ORB_SLAM3_juno/build/utils/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ORB_SLAM3_juno/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ORB_SLAM3_juno/ORB_SLAM3_juno/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
