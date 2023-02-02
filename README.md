@@ -1,4 +1,4 @@
-### SLAM-E2E.v2
+# SLAM-E2E.v2
 
 ## 2023 Capstone design_Handong CGV
 
