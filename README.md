@@ -19,6 +19,7 @@
   * cmake 3.16.0 +
   * opencv 4.4.0
   * Pytorch
+  * test_from Kh COM
  
 # Description
 <img src="Flow.jpg">
