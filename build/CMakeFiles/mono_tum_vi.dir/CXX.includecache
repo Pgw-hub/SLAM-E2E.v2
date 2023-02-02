@@ -952,7 +952,7 @@ stdio.h
 logging.h
 ../utils/logging.h
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/Examples/Monocular/mono_tum_vi.cc
+/home/ORB_SLAM3_juno/Examples/Monocular/mono_tum_vi.cc
 iostream
 -
 algorithm
@@ -974,7 +974,7 @@ arpa/inet.h
 sys/socket.h
 -
 etoeNet.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/Examples/Monocular/etoeNet.h
+/home/ORB_SLAM3_juno/Examples/Monocular/etoeNet.h
 opencv4/opencv2/core/core.hpp
 -
 System.h
@@ -988,19 +988,19 @@ errno.h
 sys/ioctl.h
 -
 termios.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/Examples/Monocular/termios.h
+/home/ORB_SLAM3_juno/Examples/Monocular/termios.h
 sys/signal.h
 -
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/etoeNet.cpp
+/home/ORB_SLAM3_juno/src/etoeNet.cpp
 etoeNet.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/etoeNet.h
+/home/ORB_SLAM3_juno/src/etoeNet.h
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/randInt8Calibrator.cpp
+/home/ORB_SLAM3_juno/src/randInt8Calibrator.cpp
 randInt8Calibrator.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/randInt8Calibrator.h
+/home/ORB_SLAM3_juno/src/randInt8Calibrator.h
 utils/cuda/cudaUtility.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/utils/cuda/cudaUtility.h
+/home/ORB_SLAM3_juno/src/utils/cuda/cudaUtility.h
 random
 -
 iterator
@@ -1008,25 +1008,25 @@ iterator
 fstream
 -
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/tensorNet.cpp
+/home/ORB_SLAM3_juno/src/tensorNet.cpp
 tensorNet.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/tensorNet.h
+/home/ORB_SLAM3_juno/src/tensorNet.h
 randInt8Calibrator.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/randInt8Calibrator.h
+/home/ORB_SLAM3_juno/src/randInt8Calibrator.h
 ../utils/cuda/cudaMappedMemory.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaMappedMemory.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaMappedMemory.h
 ../utils/cuda/cudaResize.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaResize.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaResize.h
 filesystem.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/filesystem.h
+/home/ORB_SLAM3_juno/src/filesystem.h
 NvCaffeParser.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/NvCaffeParser.h
+/home/ORB_SLAM3_juno/src/NvCaffeParser.h
 NvOnnxParser.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/NvOnnxParser.h
+/home/ORB_SLAM3_juno/src/NvOnnxParser.h
 NvUffParser.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/NvUffParser.h
+/home/ORB_SLAM3_juno/src/NvUffParser.h
 NvInferPlugin.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/src/NvInferPlugin.h
+/home/ORB_SLAM3_juno/src/NvInferPlugin.h
 iostream
 -
 fstream
@@ -1034,21 +1034,21 @@ fstream
 map
 -
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaMappedMemory.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaMappedMemory.h
 cudaUtility.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
 utils/image/imageFormat.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/utils/image/imageFormat.h
+/home/ORB_SLAM3_juno/utils/cuda/utils/image/imageFormat.h
 logging.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/logging.h
+/home/ORB_SLAM3_juno/utils/cuda/logging.h
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaResize.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaResize.h
 cudaUtility.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
 utils/image/imageFormat.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/utils/image/imageFormat.h
+/home/ORB_SLAM3_juno/utils/cuda/utils/image/imageFormat.h
 
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
+/home/ORB_SLAM3_juno/utils/cuda/cudaUtility.h
 cuda_runtime.h
 -
 cuda.h
@@ -1060,7 +1060,7 @@ string.h
 stdint.h
 -
 logging.h
-/home/ORB_SLAM3_juno/ORB_SLAM3_juno/utils/cuda/logging.h
+/home/ORB_SLAM3_juno/utils/cuda/logging.h
 
 /home/Pangolin/components/pango_core/include/pangolin/compat/type_traits.h
 pangolin/platform.h
