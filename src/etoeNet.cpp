@@ -17,12 +17,13 @@ void etoeNet:: loadOnnxFile(const std::string &onnx_file_path){
 }
 
 void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
-
+    std::cout << "\n=======" << std::endl;
     char go[1]= {'w'};
     char left[1] = {'a'};
     char right[1] = {'d'};
     char trash[1] = {'b'};
     char stop[1] = {'s'};
+    char back[1] = {'x'};
     char clear[1] = {0x0D};
 
     //전처리
@@ -46,35 +47,14 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
     float network_output_angle = *(mOutputs[0].CPU); //angle prediction
     float network_output_velocity =-*(mOutputs[0].CPU+1); //velocity prediction
 
-    //float steering_angle;
+    std::cout << "current angle : " << currentAngle << std::endl;
+    std::cout << "current velocity : " << currentVel << std::endl;
 
-    // if(network_output_angle<-0.75)
-    // {
-     
-    // }
-    // else if (network_output_angle< -0.25)
-    // {
-    //     steering_angle = -0.5;
-    // }
-    //  else if (network_output_angle< 0.25)
-    // {
-    //     steering_angle = 0;
-    // }
-    //  else if (network_output_angle< 0.75)
-    // {
-    //     steering_angle = 0.5;
-    // }
-    //  else
-    // {
-    //     steering_angle = 1.00;
-    // }
+    std::cout << "network_output_angle  : " << network_output_angle << std::endl;
+    std::cout << "network_output_velocity : " << network_output_velocity << std::endl<<std::endl;
 
-    // steering_angle *=20.0;
-
-    std::cout<<"network_output_angle  : " <<network_output_angle << std::endl;
-    // std::cout<<"actual steering angle : " <<steering_angle <<std::endl;
-    std::cout<<"network_output_velocity : " << network_output_velocity <<std::endl<<std::endl;
-
+    //angle setting
+    std::cout << "[ANGLE]" << std::endl;
     if(network_output_angle< -0.875)
         currentAngle= -1.00;
     else if(network_output_angle< -0.625)
@@ -96,9 +76,10 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
     currentAngle *= 20;
 
     int diffAngle = (int)((currentAngle - actualAngle)/5);
-   if(diffAngle == 0){
+    std::cout << "diffAngle  : " << diffAngle << std::endl;
+
+    if(diffAngle == 0){
         std::cout << "Go straight" << std::endl;
-    
     }
     else if(diffAngle < 0){
         for(int i=0; i< -diffAngle; i++){
@@ -116,6 +97,44 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
             // write(SLAM.fd, clear, 1);
         }
     }
+
+    //velocity setting
+    std::cout << "\n[VELOCITY]" << std::endl;
+    if(network_output_velocity >= 1.5) { //velocity set to 2
+        if(currentVel == 1) {
+            std::cout << "Increase speed by 1" << std::endl;
+            write(*fd, go, 1);
+            // write(SLAM.fd, clear, 1);
+        }
+        else if(currentVel == 0) {
+            std::cout << "Increase speed by 2" << std::endl;
+            write(*fd, go, 1);
+            // write(SLAM.fd, clear, 1);
+            write(*fd, go, 1);
+            // write(SLAM.fd, clear, 1);
+        }
+        currentVel = 2;
+    }
+    else if(network_output_velocity >= 0.5) { //velocity set to 1
+        if(currentVel == 2) {
+            std::cout << "Decrease speed by 1" << std::endl;
+            write(*fd, back, 1);
+            // write(SLAM.fd, clear, 1);
+        }
+        else if(currentVel == 0) {
+            std::cout << "Increase speed by 1" << std::endl;
+            write(*fd, go, 1);
+            // write(SLAM.fd, clear, 1);
+        }
+        currentVel = 1;
+    }
+    else { //velocity set to 0
+        std::cout << "Speed set to 0" << std::endl;
+        write(*fd, stop, 1);
+        // write(SLAM.fd, clear, 1);
+        currentVel = 0;
+    }
+
 }
 
 // float etoeNet::getModelOutput(){

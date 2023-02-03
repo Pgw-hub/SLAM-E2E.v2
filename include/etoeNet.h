@@ -24,8 +24,8 @@ class etoeNet : tensorNet
         cv::Mat m_img_cropped_rgb_f_mat;
         float currentAngle = 0.0;
         float actualAngle = 0.0;
-        float currentVel = 0.0;
-        float actualVel=0.0;
+        int currentVel = 2.0;
+        int actualVel=0.0;
 
 };
 
