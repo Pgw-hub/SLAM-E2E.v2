@@ -70,9 +70,9 @@ int main(int argc, char **argv)
 
     // SERIAL 통신파트 
     SLAM.OpenSerialPort();
-    float currentAngle = 0.0;
-    int diffAngle = 0;
-    float actualAngle = 0.0;
+    //float currentAngle = 0.0;
+    //int diffAngle = 0;
+    //float actualAngle = 0.0;
     
 
     char go[1] = {'w'};
@@ -97,8 +97,10 @@ int main(int argc, char **argv)
         //Send the captured frame to the new Mat
         cap >> frame;
         cv::Mat temp;
+
         cv::resize(frame, temp, cv::Size(640,480));
-        actualAngle = etoe.runInference(temp, &SLAM.fd, &actualAngle);
+        //actualAngle = etoe.runInference(temp, &SLAM.fd, &actualAngle);
+        etoe.runInference(temp, &SLAM.fd);
 
         if(frame.empty())
             break;
