@@ -1,5 +1,6 @@
 // 명령어 :
-// ./Examples/Monocular/mono_tum_vi ./Vocabulary/ORBvoc.txt ./Examples/Monocular/fisheye.y
+// ./bin/mono_tum_vi ./Vocabulary/ORBvoc.txt ./fisheye.yaml ./Trained_Model/model-60.onnx
+
 
 #include<iostream>
 #include<algorithm>
@@ -80,10 +81,10 @@ int main(int argc, char **argv)
 
     char go[1] = {'w'};
     write(SLAM.fd, go, 1);
-    write(SLAM.fd, go, 1);
-    write(SLAM.fd, go, 1);
-    write(SLAM.fd, go, 1);
-    write(SLAM.fd, go, 1);
+    // write(SLAM.fd, go, 1);
+    // write(SLAM.fd, go, 1);
+    // write(SLAM.fd, go, 1);
+    // write(SLAM.fd, go, 1);
 
 #ifdef COMPILEDWITHC11
     std::chrono::steady_clock::time_point initT = std::chrono::steady_clock::now();
