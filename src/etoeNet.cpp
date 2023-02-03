@@ -16,7 +16,7 @@ void etoeNet:: loadOnnxFile(const std::string &onnx_file_path){
     m_img_cropped_rgb_f_mat = cv::Mat(cv::Size(320, 70), CV_32FC3, mInputs[0].CPU);
 }
 
-float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
+void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
 
     char go[1]= {'w'};
     char left[1] = {'a'};
@@ -25,7 +25,6 @@ float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
     char stop[1] = {'s'};
     char clear[1] = {0x0D};
 
-    
     //전처리
     //-------------------------------------------
     cv::Mat img_resized_mat;
@@ -44,10 +43,11 @@ float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
     // std::cout <<"run"<<std::endl;
 
     //todo :inference resul
-    float network_output_angle = *(mOutputs[0].CPU);
+    float network_output_angle = *(mOutputs[0].CPU); //angle prediction
+    float network_output_velocity =-*(mOutputs[0].CPU+1); //velocity prediction
 
-    float steering_angle;
-    float network_output_velocity =-*(mOutputs[0].CPU+1);
+    //float steering_angle;
+
     // if(network_output_angle<-0.75)
     // {
      
@@ -71,12 +71,10 @@ float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
 
     // steering_angle *=20.0;
 
-    // std::cout<<"network_output_angle  : " <<network_output_angle << std::endl;
+    std::cout<<"network_output_angle  : " <<network_output_angle << std::endl;
     // std::cout<<"actual steering angle : " <<steering_angle <<std::endl;
-    // std::cout<<"network_output_velocity : " << network_output_velocity <<std::endl<<std::endl;
+    std::cout<<"network_output_velocity : " << network_output_velocity <<std::endl<<std::endl;
 
-
-    float currentAngle;
     if(network_output_angle< -0.875)
         currentAngle= -1.00;
     else if(network_output_angle< -0.625)
@@ -97,7 +95,7 @@ float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
         currentAngle = 1.0;
     currentAngle *= 20;
 
-    int diffAngle = (int)((currentAngle - *actualAngle)/5);
+    int diffAngle = (int)((currentAngle - actualAngle)/5);
    if(diffAngle == 0){
         std::cout << "Go straight" << std::endl;
     
@@ -118,8 +116,6 @@ float etoeNet::runInference(const cv::Mat &img_mat,int* fd, float* actualAngle){
             // write(SLAM.fd, clear, 1);
         }
     }
-    return currentAngle;
-
 }
 
 // float etoeNet::getModelOutput(){
