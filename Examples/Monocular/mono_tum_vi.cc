@@ -1,6 +1,3 @@
-// 명령어 :
-// ./Examples/Monocular/mono_tum_vi ./Vocabulary/ORBvoc.txt ./Examples/Monocular/fisheye.y
-
 #include<iostream>
 #include<algorithm>
 #include<fstream>
@@ -100,7 +97,8 @@ int main(int argc, char **argv)
         //Send the captured frame to the new Mat
         cap >> frame;
         cv::Mat temp;
-        cv::resize(frame, temp, cv::Size(360,240));
+
+        cv::resize(frame, temp, cv::Size(640,480));
         //actualAngle = etoe.runInference(temp, &SLAM.fd, &actualAngle);
         etoe.runInference(temp, &SLAM.fd);
 
