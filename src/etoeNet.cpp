@@ -55,7 +55,7 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
 
     //todo :inference result
     float network_output_angle = *(mOutputs[0].CPU); //angle prediction
-    float network_output_velocity =-*(mOutputs[0].CPU+1); //velocity prediction
+    float network_output_velocity =*(mOutputs[0].CPU+1); //velocity prediction
 
     std::cout << "current angle : " << currentAngle << std::endl;
     std::cout << "current velocity : " << currentVel << std::endl;
