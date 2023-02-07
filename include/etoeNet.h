@@ -17,6 +17,7 @@ class etoeNet : tensorNet
         // float getActualAngle();
         // float getActualAngle_ver2();
         // float getModelOutput();
+        cv::Mat yolo(const cv::Mat &img);
 
         float m_network_output = 0.0;
 
@@ -26,7 +27,9 @@ class etoeNet : tensorNet
         float actualAngle = 0.0;
         int currentVel = 2.0;
         int actualVel=0.0;
-
+        cv::Mat img_yolo;
+        cv::Mat slow_sign = cv::imread("/home/ORB_SLAM3_juno/sign/slow.png");
+        cv::Mat stop_sign = cv::imread("/home/ORB_SLAM3_juno/sign/stop.png");
 };
 
 
