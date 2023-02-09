@@ -78,9 +78,9 @@ int main(int argc, char **argv)
     char go[1] = {'w'};
     write(SLAM.fd, go, 1);
     write(SLAM.fd, go, 1);
-    //write(SLAM.fd, go, 1);
-    //write(SLAM.fd, go, 1);
-    //write(SLAM.fd, go, 1);
+    write(SLAM.fd, go, 1);
+    write(SLAM.fd, go, 1);
+    write(SLAM.fd, go, 1);
 
 #ifdef COMPILEDWITHC11
     std::chrono::steady_clock::time_point initT = std::chrono::steady_clock::now();
