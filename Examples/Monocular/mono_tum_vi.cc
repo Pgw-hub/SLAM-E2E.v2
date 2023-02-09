@@ -74,7 +74,7 @@ int main(int argc, char **argv)
     //int diffAngle = 0;
     //float actualAngle = 0.0;
     
-
+    //initialize speed to 2
     char go[1] = {'w'};
     write(SLAM.fd, go, 1);
     write(SLAM.fd, go, 1);
