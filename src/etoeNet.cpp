@@ -23,7 +23,7 @@ void etoeNet:: loadOnnxFile(const std::string &onnx_file_path){
     m_img_cropped_rgb_f_mat = cv::Mat(cv::Size(320, 70), CV_32FC3, mInputs[0].CPU);
 }
 
-void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
+void etoeNet::runInference(const cv::Mat &img_mat,int* fd, bool flag){
     std::cout << "\n=======" << std::endl;
     char go[1]= {'w'};
     char left[1] = {'a'};
@@ -50,101 +50,101 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
     ProcessNetwork(true); //sync = TRUE
 
     // TODO : inference 결과 가져오고난 뒤 Postprocess
+    //ANGLE
+    if(flag == 0){
+        float network_output_angle = *(mOutputs[0].CPU); //angle prediction
+        std::cout << "current angle : " << currentAngle << std::endl;
+        std::cout << "network_output_angle  : " << network_output_angle << std::endl;
 
-    // std::cout <<"run"<<std::endl;
+        //angle setting
+        std::cout << "[ANGLE]" << std::endl;
+        if(network_output_angle< -0.875)
+            currentAngle= -1.00;
+        else if(network_output_angle< -0.625)
+            currentAngle= -0.75;
+        else if(network_output_angle< -0.375)
+            currentAngle = -0.5;
+        else if(network_output_angle< -0.125)
+            currentAngle = -0.25;
+        else if(network_output_angle< 0.125)
+            currentAngle = 0.0;
+        else if(network_output_angle< 0.375)
+            currentAngle = 0.25;
+        else if(network_output_angle< 0.625)
+            currentAngle= 0.5;
+        else if(network_output_angle< 0.875)
+            currentAngle = 0.75;    
+        else
+            currentAngle = 1.0;
+        currentAngle *= 20;
 
-    //todo :inference result
-    float network_output_angle = *(mOutputs[0].CPU); //angle prediction
-    float network_output_velocity =*(mOutputs[0].CPU+1); //velocity prediction
+        int diffAngle = (int)((currentAngle - actualAngle)/5);
+        std::cout << "diffAngle  : " << diffAngle << std::endl;
 
-    std::cout << "current angle : " << currentAngle << std::endl;
-    std::cout << "current velocity : " << currentVel << std::endl;
-
-    std::cout << "network_output_angle  : " << network_output_angle << std::endl;
-    std::cout << "network_output_velocity : " << network_output_velocity << std::endl<<std::endl;
-
-    //angle setting
-    std::cout << "[ANGLE]" << std::endl;
-    if(network_output_angle< -0.875)
-        currentAngle= -1.00;
-    else if(network_output_angle< -0.625)
-        currentAngle= -0.75;
-    else if(network_output_angle< -0.375)
-        currentAngle = -0.5;
-    else if(network_output_angle< -0.125)
-        currentAngle = -0.25;
-    else if(network_output_angle< 0.125)
-        currentAngle = 0.0;
-    else if(network_output_angle< 0.375)
-        currentAngle = 0.25;
-    else if(network_output_angle< 0.625)
-        currentAngle= 0.5;
-    else if(network_output_angle< 0.875)
-        currentAngle = 0.75;    
-    else
-        currentAngle = 1.0;
-    currentAngle *= 20;
-
-    int diffAngle = (int)((currentAngle - actualAngle)/5);
-    std::cout << "diffAngle  : " << diffAngle << std::endl;
-
-    if(diffAngle == 0){
-        std::cout << "Go straight" << std::endl;
-    }
-    else if(diffAngle < 0){
-        for(int i=0; i< -diffAngle; i++){
-            // std::cout << "write: d (" << i+1 << ")" << std::endl;
-            std::cout << "Turn right" << std::endl;
-            write(*fd, right, 1);
-            // write(SLAM.fd, clear, 1);
+        if(diffAngle == 0){
+            std::cout << "Go straight" << std::endl;
+        }
+        else if(diffAngle < 0){
+            for(int i=0; i< -diffAngle; i++){
+                // std::cout << "write: d (" << i+1 << ")" << std::endl;
+                std::cout << "Turn right" << std::endl;
+                write(*fd, right, 1);
+                // write(SLAM.fd, clear, 1);
+            }
+        }
+        else{
+            for(int i=0; i< diffAngle; i++){
+                // std::cout << "write: a (" << i+1 << ")" << std::endl;
+                std::cout << "Turn left" << std::endl;
+                write(*fd, left, 1);
+                // write(SLAM.fd, clear, 1);
+            }
         }
     }
+    //VELOCITY
     else{
-        for(int i=0; i< diffAngle; i++){
-            // std::cout << "write: a (" << i+1 << ")" << std::endl;
-            std::cout << "Turn left" << std::endl;
-            write(*fd, left, 1);
+        float network_output_velocity =*(mOutputs[0].CPU); //velocity prediction
+
+        std::cout << "current velocity : " << currentVel << std::endl;
+        std::cout << "network_output_velocity : " << network_output_velocity << std::endl<<std::endl;
+
+        //velocity setting
+        std::cout << "\n[VELOCITY]" << std::endl;
+        if(network_output_velocity >= 1.5) { //velocity set to 2
+            if(currentVel == 1) {
+                std::cout << "Increase speed by 1" << std::endl;
+                write(*fd, go, 1);
+                // write(SLAM.fd, clear, 1);
+            }
+            else if(currentVel == 0) {
+                std::cout << "Increase speed by 2" << std::endl;
+                write(*fd, go, 1);
+                // write(SLAM.fd, clear, 1);
+                write(*fd, go, 1);
+                // write(SLAM.fd, clear, 1);
+            }
+            currentVel = 2;
+        }
+        else if(network_output_velocity >= 0.5) { //velocity set to 1
+            if(currentVel == 2) {
+                std::cout << "Decrease speed by 1" << std::endl;
+                write(*fd, back, 1);
+                // write(SLAM.fd, clear, 1);
+            }
+            else if(currentVel == 0) {
+                std::cout << "Increase speed by 1" << std::endl;
+                write(*fd, go, 1);
+                // write(SLAM.fd, clear, 1);
+            }
+            currentVel = 1;
+        }
+        else { //velocity set to 0
+            std::cout << "Speed set to 0" << std::endl;
+            write(*fd, stop, 1);
             // write(SLAM.fd, clear, 1);
+            currentVel = 0;
         }
     }
-    /*
-    //velocity setting
-    std::cout << "\n[VELOCITY]" << std::endl;
-    if(network_output_velocity >= 1.5) { //velocity set to 2
-        if(currentVel == 1) {
-            std::cout << "Increase speed by 1" << std::endl;
-            write(*fd, go, 1);
-            // write(SLAM.fd, clear, 1);
-        }
-        else if(currentVel == 0) {
-            std::cout << "Increase speed by 2" << std::endl;
-            write(*fd, go, 1);
-            // write(SLAM.fd, clear, 1);
-            write(*fd, go, 1);
-            // write(SLAM.fd, clear, 1);
-        }
-        currentVel = 2;
-    }
-    else if(network_output_velocity >= 0.5) { //velocity set to 1
-        if(currentVel == 2) {
-            std::cout << "Decrease speed by 1" << std::endl;
-            write(*fd, back, 1);
-            // write(SLAM.fd, clear, 1);
-        }
-        else if(currentVel == 0) {
-            std::cout << "Increase speed by 1" << std::endl;
-            write(*fd, go, 1);
-            // write(SLAM.fd, clear, 1);
-        }
-        currentVel = 1;
-    }
-    else { //velocity set to 0
-        std::cout << "Speed set to 0" << std::endl;
-        write(*fd, stop, 1);
-        // write(SLAM.fd, clear, 1);
-        currentVel = 0;
-    }
-*/
 }
 
 //cv::Mat etoeNet::yolo(const cv::Mat img) {

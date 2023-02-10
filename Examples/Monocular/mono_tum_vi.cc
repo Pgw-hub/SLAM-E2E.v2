@@ -46,8 +46,11 @@ int main(int argc, char **argv)
         cerr << endl << "argc:" << argc << "!= 3"<< endl;
     }
 
-    etoeNet etoe;
-    etoe.loadOnnxFile(argv[3]);
+    etoeNet etoe_A;
+    etoeNet etoe_V;
+    bool flag;
+    etoe_A.loadOnnxFile(argv[3]);
+    etoe_V.loadOnnxFile(argv[4]);
 
     cv::VideoCapture cap(-1);
     cap.set(cv::CAP_PROP_FRAME_WIDTH, 1024);//Setting the width of the video
@@ -100,7 +103,8 @@ int main(int argc, char **argv)
 
         cv::resize(frame, temp, cv::Size(640,480));
         //actualAngle = etoe.runInference(temp, &SLAM.fd, &actualAngle);
-        etoe.runInference(temp, &SLAM.fd);
+        etoe_A.runInference(temp, &SLAM.fd, flag);
+        etoe_V.runInference(temp, &SLAM.fd, flag);
 
         if(frame.empty())
             break;

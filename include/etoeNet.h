@@ -13,7 +13,7 @@ class etoeNet : tensorNet
 
         void loadOnnxFile(const std::string &onnx_file_path);
         //float runInference(const cv::Mat &img_mat, int* fd,  float* actualAngle);
-        void runInference(const cv::Mat &img_mat, int* fd);
+        void runInference(const cv::Mat &img_mat, int* fd, bool flag);
         // float getActualAngle();
         // float getActualAngle_ver2();
         // float getModelOutput();
