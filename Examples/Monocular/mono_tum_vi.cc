@@ -103,8 +103,8 @@ int main(int argc, char **argv)
 
         cv::resize(frame, temp, cv::Size(640,480));
         //actualAngle = etoe.runInference(temp, &SLAM.fd, &actualAngle);
-        etoe_A.runInference(temp, &SLAM.fd, flag);
-        etoe_V.runInference(temp, &SLAM.fd, flag);
+        etoe_A.runInference(temp, &SLAM.fd, 0);
+        etoe_V.runInference(temp, &SLAM.fd, 1);
 
         if(frame.empty())
             break;
