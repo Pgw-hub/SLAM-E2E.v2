@@ -2,7 +2,7 @@
 
 
 # System.SaveAtlasToFile: "CGVLAB"
-# System.LoadAtlasFromFile: "corridor"
+System.LoadAtlasFromFile: "CGVLAB"
 
 
 

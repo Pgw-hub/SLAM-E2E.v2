@@ -36,15 +36,15 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
     //전처리
     //-------------------------------------------
     cv::Mat img_resized_mat;
-    //img_yolo = img_mat.clone();
-    //img_yolo = yolo(img_yolo); //yolo
-    cv::resize(img_mat, img_resized_mat, cv::Size(320,160));    //resize the original image to 320x160
+    img_yolo = img_mat.clone();
+    img_yolo = yolo(img_yolo); //yolo
+    cv::resize(img_yolo, img_resized_mat, cv::Size(320,160));    //resize the original image to 320x160
     //cv::imshow("test", img_resized_mat);
     cv::Mat img_cropped_mat = img_resized_mat(cv::Rect(0, 35, 320, 70));    //crop resized image (0, 65, 320, 70)
     cv::Mat img_cropped_rgb_mat;
     cv::cvtColor(img_cropped_mat, img_cropped_rgb_mat, cv::COLOR_BGR2RGB);
     img_cropped_rgb_mat.convertTo(m_img_cropped_rgb_f_mat, CV_32FC3, (1.0 / 127.5), -1.0);
-    imshow("check", img_cropped_mat);
+    imshow("check", m_img_cropped_rgb_f_mat);
     //--------------------------------------------
 
     ProcessNetwork(true); //sync = TRUE
@@ -107,7 +107,7 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
             // write(SLAM.fd, clear, 1);
         }
     }
-    /*
+    
     //velocity setting
     std::cout << "\n[VELOCITY]" << std::endl;
     if(network_output_velocity >= 1.5) { //velocity set to 2
@@ -144,7 +144,7 @@ void etoeNet::runInference(const cv::Mat &img_mat,int* fd){
         // write(SLAM.fd, clear, 1);
         currentVel = 0;
     }
-*/
+
 }
 
 //cv::Mat etoeNet::yolo(const cv::Mat img) {
