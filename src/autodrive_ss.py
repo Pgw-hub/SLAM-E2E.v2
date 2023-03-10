@@ -172,7 +172,9 @@ if __name__ == '__main__':
     #ser.flush()
 
     ser.write(b'w')
-    #ser.flush()
+    ser.flush()
+    ser.write(b'w')
+    ser.flush()
 
     count = 0
 
@@ -253,13 +255,13 @@ if __name__ == '__main__':
 
         cur_angle = steering_angle
 
-        ser.write(b'd')
-        ser.flush()
+        # ser.write(b'd')
+        # ser.flush()
         #if count % 5 == 0 :
         if diff_angle == 0: 
             #ser.write(b'b')
             cv2.waitKey(33)
-            time.sleep(0.2)
+            # time.sleep(0.2)
             continue
         elif diff_angle > 0: #angle이 오른쪽으로 꺽여야함
             for i in range(diff_angle) :
@@ -270,7 +272,7 @@ if __name__ == '__main__':
                 ser.flush()
                 print("d signal was sent")
                 print()
-                time.sleep(0.2)
+                # time.sleep(0.2)
                     #time.sleep(0.2)
         else : # angle이 왼쪽으로 꺽여야 함
             for i in range(-diff_angle) :
@@ -280,7 +282,7 @@ if __name__ == '__main__':
                 ser.flush()
                 print("a signal was sent")
                 print()
-                time.sleep(0.2)
+                # time.sleep(0.2)
                     #time.sleep(0.2)
             #time.sleep(0.5)
         #else :
